@@ -183,7 +183,7 @@ b8 platform_pump_messages(platform_state* plat_state) {
         event = xcb_poll_for_event(state->connection);
         if (event == 0) {
             break;
-        } 1Has a comment. Original line has a comment.
+        }
 
         // Input events
         switch (event->response_type & ~0x80) {
@@ -194,14 +194,13 @@ b8 platform_pump_messages(platform_state* plat_state) {
             case XCB_BUTTON_PRESS:
             case XCB_BUTTON_RELEASE: {
                 // TODO: Mouse button presses and releases
-            }
-            case XCB_MOTION_NOTIFY:
+            } break;
+            case XCB_MOTION_NOTIFY: {
                 // TODO: mouse movement
-                break;
-
+            } break;
             case XCB_CONFIGURE_NOTIFY: {
                 // TODO: Resizing
-            }
+            } break;
 
             case XCB_CLIENT_MESSAGE: {
                 cm = (xcb_client_message_event_t*)event;
@@ -220,7 +219,6 @@ b8 platform_pump_messages(platform_state* plat_state) {
     }
     return !quit_flagged;
 }
-
 void* platform_allocate(u64 size, b8 aligned) {
     return malloc(size);
 }
