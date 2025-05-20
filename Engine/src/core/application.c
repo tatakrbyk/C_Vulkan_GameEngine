@@ -5,6 +5,7 @@
 
 #include "platform/platform.h"
 #include "core/kmemory.h"
+#include "core/event.h"
 
 typedef struct application_state
 {
@@ -43,6 +44,12 @@ b8 applicatio_create(struct game* game_inst)
 
     app_state.is_running = true;
     app_state.is_suspended = false;
+
+    if(!event_initialize())
+    {
+        KERROR("Event system failed initialization. Application cannot continue.");
+        return false;
+    }
 
     if(!platform_startup(
         &app_state.platform,
@@ -99,6 +106,8 @@ b8 application_run()
     } 
        
     app_state.is_running = false;
+
+    event_shutdown();
 
     platform_shutdown(&app_state.platform);
     return true;

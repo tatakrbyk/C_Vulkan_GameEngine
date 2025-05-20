@@ -34,7 +34,7 @@ extern b8 create_game(game* game_inst);
         // Initialization.
         if(!applicatio_create(&game_inst))
         {
-            KINFO("Application failed to create.");
+            KFATAL("Application failed to create.");
             return 1;
         }
 
